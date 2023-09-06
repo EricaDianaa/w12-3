@@ -8,6 +8,9 @@ namespace Esercizio_di_gruppo_2
 {
 
 
+
+
+
     internal class ContoCorrente
     {
         public string NomeCorrentista { get; set; }
@@ -38,16 +41,23 @@ namespace Esercizio_di_gruppo_2
     public static class Banca
     {
         private static List<ContoCorrente> ListaContiCorrente = new List<ContoCorrente>();
-
+        public static int it = 0;
         public static void MenuBanca()
         {
-            DateTime data = Convert.ToDateTime("2001/05/19");
-            ContoCorrente Utente1 = new ContoCorrente("Mario", "Rossi", data, "123");
-            ListaContiCorrente.Add(Utente1);
 
-            DateTime data2 = Convert.ToDateTime("1998/02/18");
-            ContoCorrente Utente2 = new ContoCorrente("Maria", "Bianchi", data2, "456");
-            ListaContiCorrente.Add(Utente2);
+            it++;
+            if (it == 1)
+            {
+
+                DateTime data = Convert.ToDateTime("2001/05/19");
+                ContoCorrente Utente1 = new ContoCorrente("Mario", "Rossi", data, "123");
+                ListaContiCorrente.Add(Utente1);
+
+                DateTime data2 = Convert.ToDateTime("1998/02/18");
+                ContoCorrente Utente2 = new ContoCorrente("Maria", "Bianchi", data2, "456");
+                ListaContiCorrente.Add(Utente2);
+            }
+
 
             Console.WriteLine("MENU");
             Console.WriteLine("Lista Operazioni:");
@@ -202,3 +212,4 @@ namespace Esercizio_di_gruppo_2
 
     }
 }
+
