@@ -15,22 +15,25 @@
 
 //--5)
 //SELECT AVG(Freight) FROM Orders
-//GROUP BY CustomerID
+//GROUP  BY CustomerID
 //HAVING CustomerID='BOTTM'
 
 //--6)
 //SELECT COUNT(*),EmployeeID FROM Orders
 //GROUP BY EmployeeID
+
 //--7)
 //SELECT COUNT(EmployeeID) as Employee,city FROM Employees
 //GROUP  BY City
 
 //--8)
-//SELECT(UnitPrice* Quantity),OrderID FROM[Order Details]
+//SELECT SUM(UnitPrice* Quantity),OrderID FROM[Order Details]
+//GROUP BY OrderID
 
 //--9)
-//SELECT(UnitPrice* Quantity),OrderID FROM[Order Details]
-//WHERE OrderID = 10248
+//SELECT SUM(UnitPrice* Quantity),OrderID FROM[Order Details]
+//GROUP BY OrderID
+//HAVING OrderID=10248
 
 //--10)
 //SELECT COUNT(*),CategoryID FROM Products
@@ -43,5 +46,5 @@
 //--12)
 //SELECT AVG(Freight) ,ShipCountry FROM Orders
 //GROUP BY ShipCountry
-//    }
+
 
