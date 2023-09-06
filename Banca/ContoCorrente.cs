@@ -4,18 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Banca
+namespace Esercizio_di_gruppo_2
 {
 
 
     internal class ContoCorrente
     {
-
         public string NomeCorrentista { get; set; }
         public string Cognome { get; set; }
         public DateTime DataApertura { get; set; }
         public string NrConto { get; set; }
-        public double Saldo { get; set; }
+        public double Saldo { get; set; } = 0;
         public List<Movimenti> ListaMovimenti { get; set; } = new List<Movimenti>();
 
 
@@ -34,6 +33,7 @@ namespace Banca
             public double Importo { get; set; }
         }
 
+
     }
     public static class Banca
     {
@@ -41,12 +41,20 @@ namespace Banca
 
         public static void MenuBanca()
         {
+            DateTime data = Convert.ToDateTime("2001/05/19");
+            ContoCorrente Utente1 = new ContoCorrente("Mario", "Rossi", data, "123");
+            ListaContiCorrente.Add(Utente1);
+
+            DateTime data2 = Convert.ToDateTime("1998/02/18");
+            ContoCorrente Utente2 = new ContoCorrente("Maria", "Bianchi", data2, "456");
+            ListaContiCorrente.Add(Utente2);
+
             Console.WriteLine("MENU");
             Console.WriteLine("Lista Operazioni:");
             Console.WriteLine("1 - Crea nuovo conto corrente");
             Console.WriteLine("2 - Memorizzazione movimento");
             Console.WriteLine("3 - Mostra lista movimenti e saldo");
-            Console.WriteLine("4- Mostra lista di tutti i conti");
+            Console.WriteLine("4 - Mostra lista di tutti i conti");
             Console.WriteLine("5 - Esci");
 
             string scelta = Console.ReadLine();
@@ -135,7 +143,11 @@ namespace Banca
 
                         contoUtente.ListaMovimenti.Add(movimento);
                     }
-                    catch { Console.WriteLine("Inserire numero di conto:"); }
+                    catch
+                    {
+                        Console.WriteLine("Error:");
+                        MemorizzaMovimentiConto();
+                    }
                 }
                 else
                 {
@@ -144,7 +156,8 @@ namespace Banca
             }
             else
             {
-                Console.WriteLine("erore inserire un numero");
+                Console.WriteLine("Errore, numero di conto non esistente");
+                Console.WriteLine("");
                 MemorizzaMovimentiConto();
             }
         }
@@ -154,25 +167,36 @@ namespace Banca
             Console.WriteLine("Inserire numero di conto:");
             string verificaConto = Console.ReadLine();
             int i = 0;
+
             var contoUtente = ListaContiCorrente.Find((lista) => lista.NrConto == verificaConto);
+            if (contoUtente == null)
+            {
+                Console.WriteLine("Numero conto corrente non esistente");
+                MostraListaMovimenti();
+            }
+
+            if (contoUtente.ListaMovimenti.Count == 0)
+            {
+                Console.WriteLine("Non ci sono movimenti registrati");
+            }
+
             contoUtente.ListaMovimenti.ForEach(movimenti =>
             {
                 Console.WriteLine($"movimento numero {i}");
                 Console.WriteLine($"operazione di {movimenti.Operazione} di {movimenti.Importo} €");
+                Console.WriteLine("---------");
                 i++;
             });
-            Console.WriteLine(contoUtente.Saldo);
+            Console.WriteLine($"Saldo: {contoUtente.Saldo}");
 
         }
         private static void MostraTuttiConti()
         {
             foreach (var item in ListaContiCorrente)
             {
-                Console.WriteLine($"conto di {item.NomeCorrentista} {item.Cognome} aperto in data{item.DataApertura.ToString("yyyy/MM/dd")}");
-                Console.WriteLine($"{item.NrConto}");
+                Console.WriteLine($"conto di {item.NomeCorrentista} {item.Cognome} aperto in data {item.DataApertura.ToString("yyyy/MM/dd")}");
+                Console.WriteLine($"Nr conto: {item.NrConto}");
                 Console.WriteLine($"{item.Saldo} €");
-
-
             }
         }
 
